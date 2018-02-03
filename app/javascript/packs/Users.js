@@ -9,7 +9,7 @@ import {
   Link
 } from 'react-router-dom'
 
-import EditGenericType from "./EditGenericType";
+import GenericLineItem from "./GenericLineItem";
 
 export default class Users extends Component {
 
@@ -37,8 +37,8 @@ export default class Users extends Component {
         {
           this.state.users && 
           <ul>
-            {this.state.users.map((u) => <UserLineItem key={u.id} user={u} close={this.close.bind(this)}/>)}
-            <UserLineItem key={0} close={this.close.bind(this)} />
+            {this.state.users.map((u) => <GenericLineItem key={u.id} data={u} close={this.close.bind(this)} fields={["name", "email"]} type="user" typePlural="users" />)}
+            <GenericLineItem key={0} close={this.close.bind(this)} fields={["name", "email"]} type="user" typePlural="users" />
           </ul>
         }
       </div>
