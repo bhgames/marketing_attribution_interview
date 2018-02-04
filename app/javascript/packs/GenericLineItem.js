@@ -21,8 +21,19 @@ export default class GenericLineItem extends Component {
     this.setState({editing: false}, () => this.props.close())
   }
 
+  async delete(e) {
+    e.preventDefault();
+    await fetch(`/api/${this.props.endpoint}/${this.props.data.id}`, {
+                  method: "DELETE", 
+                  headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                }});
+    this.close();
+  }
+
   render() {
-    let { fields, typePlural, type, data } = this.props;
+    let { fields, endpoint, type, data } = this.props;
 
     if(!this.state.editing) {
       if(data) {
@@ -32,6 +43,8 @@ export default class GenericLineItem extends Component {
           </Link> 
           &nbsp;|&nbsp;
           <a href="#" onClick={(e) => { e.preventDefault; this.setState({editing: true})}}>[Edit]</a>
+          {data.id && 
+            <span>&nbsp;|&nbsp;<a href="#" onClick={this.delete.bind(this)}>[Delete]</a></span>}
         </li>
       } else {
         return (
@@ -41,7 +54,7 @@ export default class GenericLineItem extends Component {
 
     } else {
       return (
-        <li><EditGenericType close={this.close.bind(this)} data={data} fields={fields} type={type} typePlural={typePlural} /></li>
+        <li><EditGenericType close={this.close.bind(this)} data={data} fields={fields} type={type} endpoint={endpoint} /></li>
       )
     }
   }

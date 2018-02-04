@@ -7,6 +7,7 @@ import {
   Link
 } from 'react-router-dom'
 
+import GenericLineItem from "./GenericLineItem";
 
 export default class User extends Component {
 
@@ -29,6 +30,12 @@ export default class User extends Component {
     this.setState({repositories: body});
   }
 
+
+  close() {
+    this.getUser();
+    this.getRepositories();
+  }
+
   render() {
     return (
         <div>
@@ -39,12 +46,13 @@ export default class User extends Component {
               <h3>Email: {this.state.user.email}</h3>
             </div>
           }
-          {!this.state.repositories && <p>Loading repository data...</p>}
-          {this.state.repositories && 
+          {!this.state.repositories && this.state.user && <p>Loading repository data...</p>}
+          {this.state.repositories && this.state.user && 
             <div>
               <h3> Repositories: </h3>
               <ul>
-                {this.state.repositories.map((r) => <li key={r.id}>{r.name} - {r.description}</li>)}
+                {this.state.repositories.map((r) => <GenericLineItem key={r.id} data={r} close={this.close.bind(this)} fields={["name", "description"]} type="repository" endpoint={`users/${this.state.user.id}/repositories`} />)}
+                <GenericLineItem key={0} close={this.close.bind(this)} fields={["name", "description"]} type="repository" endpoint={`users/${this.state.user.id}/repositories`} />
               </ul>
             </div>
           }

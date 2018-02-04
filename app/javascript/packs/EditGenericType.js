@@ -25,7 +25,7 @@ export default class EditGenericType extends Component {
   async submit() {
     let obj = {};
     obj[this.props.type] = this.state.data;
-    await fetch(`/api/${this.props.typePlural}/${this.state.data.id || ""}`, {
+    await fetch(`/api/${this.props.endpoint}/${this.state.data.id || ""}`, {
                   method: this.state.data.id ? "PUT" : "POST", 
                   body: JSON.stringify(obj),
                   headers: {

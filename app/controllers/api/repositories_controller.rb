@@ -15,7 +15,7 @@ class Api::RepositoriesController < ApplicationController
   # POST /repositories
   # POST /repositories.json
   def create
-    @repository = Repository.new(repository_params)
+    @repository = Repository.new(repository_params.merge(user_id: params[:id]))
 
     if @repository.save
       render :show, status: :created

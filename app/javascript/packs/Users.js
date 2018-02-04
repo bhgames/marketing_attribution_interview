@@ -37,8 +37,8 @@ export default class Users extends Component {
         {
           this.state.users && 
           <ul>
-            {this.state.users.map((u) => <GenericLineItem key={u.id} data={u} close={this.close.bind(this)} fields={["name", "email"]} type="user" typePlural="users" />)}
-            <GenericLineItem key={0} close={this.close.bind(this)} fields={["name", "email"]} type="user" typePlural="users" />
+            {this.state.users.map((u) => <GenericLineItem key={u.id} data={u} close={this.close.bind(this)} fields={["name", "email"]} type="user" endpoint="users" />)}
+            <GenericLineItem key={0} close={this.close.bind(this)} fields={["name", "email"]} type="user" endpoint="users" />
           </ul>
         }
       </div>
